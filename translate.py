@@ -8,11 +8,11 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 # ---------------- CONFIG ----------------
 API_URL = "http://192.168.50.71:8009/translate"
-SOURCE_LANG = "en"
-TARGET_LANG = "hi"
+SOURCE_LANG = "hi"
+TARGET_LANG = "en"
 SERVICES = ["google_translate", "azure_translator", "bhashini"]
 
-ARTICLE_FILE = "sample.txt"
+ARTICLE_FILE = "jagdeesh.txt"
 MAX_RETRIES = 3
 RETRY_DELAY = 2  # exponential backoff
 CHUNK_SIZE = 1000  # approx chars per chunk for GPT evaluation
@@ -96,7 +96,7 @@ def translate_text(text: str) -> (dict, float):
 
 def evaluate_chunk(chunk: str, translations: dict) -> dict:
     """Evaluate a single chunk with GPT-5-nano."""
-    llm = ChatOpenAI(model="gpt-5-nano", base_url="http://192.168.50.71:4000/v1")
+    llm = ChatOpenAI(model="gpt-5-nano", base_url="http://192.168.50.71:4000/v1", api_key="sk-s")
     system_prompt = (
         "You are a bilingual translation evaluator. Compare multiple Hindi translations of the same English text. "
         "Evaluate them word-by-word for accuracy, fluency, naturalness, and preservation of meaning. "
